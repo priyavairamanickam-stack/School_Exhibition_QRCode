@@ -119,6 +119,10 @@
         border: 2px solid rgba(255,255,255,0.4);
         background: rgba(0,0,0,0.2);
         box-shadow: 0 0 20px rgba(255,255,255,0.2);
+
+        /* NEW → center the PDF */
+        display: flex;
+        justify-content: center;
     }
 
     iframe {
@@ -126,6 +130,7 @@
         height: 600px;
         border: none;
         border-radius: 12px;
+        margin: 0 auto; /* extra centering support */
     }
 
     /* Mobile */
