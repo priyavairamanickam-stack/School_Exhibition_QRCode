@@ -80,6 +80,13 @@
     width: 1200px; /* wide so user can scroll horizontally */
     border: none;
   }
+
+  /* QR code styling */
+  .qr-code {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
 </style>
 </head>
 <body>
@@ -90,6 +97,7 @@
 </nav>
 
 <div class="container">
+
   <!-- Image 1 -->
   <div class="image-wrapper" id="image1">
     <h2>Image 1</h2>
@@ -109,9 +117,13 @@
     <div class="buttons">
       <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondFile.pdf" download>Download PDF</a>
     </div>
+    <!-- QR code to open PDF -->
+    <div class="qr-code">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondFile.pdf" alt="QR code to PDF">
+    </div>
   </div>
+
 </div>
 
 </body>
 </html>
-
