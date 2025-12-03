@@ -1,20 +1,28 @@
-import qrcode
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Explora Venues QR</title>
+</head>
+<body>
+  <h1>Explora Venues</h1>
 
-# CHANGE THESE TO YOUR REAL GITHUB URLs
-pdf_url = "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/assets/Explora_Venues.pdf"
-img_url = "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/assets/JuniorBlock_Layout.jpg"
+  <!-- Link to PDF -->
+  <h2>Explora Venues PDF</h2>
+  <p>
+    <a href="https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/assets/Explora_Venues.pdf" target="_blank">
+      Open Explora_Venues.pdf
+    </a>
+  </p>
+  <img src="explora_venues_qr.png" alt="QR for Explora Venues PDF" width="200">
 
-def make_qr(data, filename):
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_M,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(data)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")
-    img.save(filename)
-
-make_qr(pdf_url, "explora_venues_qr.png")
-make_qr(img_url, "juniorblock_layout_qr.png")
+  <!-- Link to Junior Block layout image -->
+  <h2>Junior Block Layout</h2>
+  <p>
+    <a href="https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/assets/JuniorBlock_Layout.jpg" target="_blank">
+      Open JuniorBlock_Layout.jpg
+    </a>
+  </p>
+  <img src="juniorblock_layout_qr.png" alt="QR for Junior Block Layout" width="200">
+</body>
+</html>
