@@ -125,16 +125,21 @@
     </div>
   </div>
 
-  <!-- Image 2 (lazy-loaded with placeholder) -->
+  <!-- Image 2 with tiny preview / low-res placeholder -->
   <div class="image-wrapper" id="image2">
     <h2>Image 2</h2>
-    <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" class="glightbox">
-      <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" 
-           alt="Image 2" loading="lazy" style="background: #eee; min-height: 300px;">
+    <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" class="glightbox">
+      <img 
+        src="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage_small.png" 
+        data-src="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" 
+        alt="Image 2" 
+        loading="lazy" 
+        style="background: #eee; min-height: 300px;" 
+        class="lazy-image">
     </a>
     <div class="buttons">
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" download>Download</a>
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" target="_blank">QR Link</a>
+      <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" download>Download</a>
+      <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" target="_blank">QR Link</a>
     </div>
   </div>
 
@@ -169,6 +174,21 @@
       "move": {"enable": true,"speed": 2}
     }
   });
+</script>
+
+<!-- Lazy-load full image for Image 2 -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const lazyImages = document.querySelectorAll('.lazy-image');
+  lazyImages.forEach(img => {
+    const fullSrc = img.getAttribute('data-src');
+    const fullImg = new Image();
+    fullImg.src = fullSrc;
+    fullImg.onload = () => {
+      img.src = fullSrc;
+    }
+  });
+});
 </script>
 
 </body>
