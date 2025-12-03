@@ -3,31 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Image Viewer</title>
-
+<title>Interactive Image + PDF Viewer</title>
 <style>
   body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(120deg, #e0f7fa, #f0e5ff);
     overflow-x: hidden;
   }
-
-  #particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  h1 {
-    text-align: center;
-    margin: 20px 0;
-    color: #333;
-  }
-
   nav {
     position: sticky;
     top: 0;
@@ -37,7 +20,6 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     z-index: 10;
   }
-
   nav a {
     margin: 0 15px;
     text-decoration: none;
@@ -46,7 +28,7 @@
   }
   nav a:hover { color: #673ab7; }
 
-  .scroll-container {
+  .container {
     width: 90%;
     max-width: 800px;
     margin: 40px auto;
@@ -56,13 +38,10 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   }
 
-  .image-wrapper {
-    position: relative;
-    margin-bottom: 40px;
-  }
+  .image-wrapper { margin-bottom: 40px; }
 
   /* Image 1 effects */
-  .image-wrapper#image1 img {
+  #image1 img {
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -70,16 +49,14 @@
     transition: transform 0.3s ease;
     cursor: pointer;
   }
-  .image-wrapper#image1 img:hover { transform: rotateY(5deg) scale(1.03); }
+  #image1 img:hover { transform: rotateY(5deg) scale(1.03); }
 
-  /* Buttons */
   .buttons {
     margin-top: 10px;
     display: flex;
     justify-content: center;
     gap: 15px;
   }
-
   .buttons a {
     text-decoration: none;
     padding: 6px 12px;
@@ -91,72 +68,49 @@
   }
   .buttons a:hover { background: #512da8; }
 
-  /* PDF viewer scrollable container */
+  /* PDF container with horizontal scroll */
   .pdf-container {
     width: 100%;
     overflow-x: auto;
     border: 1px solid #ccc;
     border-radius: 10px;
   }
-
   .pdf-container iframe {
-    height: 600px; /* adjust height as needed */
-    width: 1200px; /* wide to allow horizontal scroll */
+    height: 600px;
+    width: 1200px; /* wide so user can scroll horizontally */
     border: none;
   }
 </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
-
-<h1>Interactive Image Viewer</h1>
-
 <nav>
-  <a href="#image1">Go to Image 1</a>
-  <a href="#pdf">Go to PDF</a>
+  <a href="#image1">Image 1</a>
+  <a href="#pdf">PDF</a>
 </nav>
 
-<div class="scroll-container">
-
-  <!-- Image 1 (interactive) -->
+<div class="container">
+  <!-- Image 1 -->
   <div class="image-wrapper" id="image1">
     <h2>Image 1</h2>
-    <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" alt="Image 1">
+    <img src="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png" alt="Image 1">
     <div class="buttons">
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" download>Download</a>
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" target="_blank">QR Link</a>
+      <a href="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png" download>Download</a>
+      <a href="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png" target="_blank">Open Full</a>
     </div>
   </div>
 
-  <!-- PDF embedded directly with horizontal scroll -->
+  <!-- PDF -->
   <div class="image-wrapper" id="pdf">
     <h2>PDF Document</h2>
     <div class="pdf-container">
-      <iframe src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondFile.pdf"></iframe>
+      <iframe src="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondFile.pdf"></iframe>
     </div>
     <div class="buttons">
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondFile.pdf" download>Download PDF</a>
+      <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondFile.pdf" download>Download PDF</a>
     </div>
   </div>
-
 </div>
-
-<!-- Particles only for background -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-<script>
-  particlesJS("particles-js", {
-    "particles": {
-      "number": {"value": 50},
-      "color": {"value": ["#673ab7","#e91e63","#03a9f4"]},
-      "shape": {"type": "circle"},
-      "opacity": {"value": 0.5},
-      "size": {"value": 4},
-      "line_linked": {"enable": true,"distance": 150,"color": "#aaa","opacity":0.4,"width":1},
-      "move": {"enable": true,"speed": 2}
-    }
-  });
-</script>
 
 </body>
 </html>
