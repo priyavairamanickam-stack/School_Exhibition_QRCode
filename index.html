@@ -1,28 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Explora Venues QR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junior Block School Layout</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+            touch-action: none; 
+        }
+
+        header {
+            background: #1976d2;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .zoom-container {
+            overflow: hidden;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: relative;
+            touch-action: none;
+        }
+
+        .map-image {
+            width: 100%;
+            transform-origin: center center;
+            transition: transform 0.2s ease-out;
+            cursor: grab;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            color: #444;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
-  <h1>Explora Venues</h1>
 
-  <!-- Link to PDF -->
-  <h2>Explora Venues PDF</h2>
-  <p>
-    <a href="https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/assets/Explora_Venues.pdf" target="_blank">
-      Open Explora_Venues.pdf
-    </a>
-  </p>
-  <img src="explora_venues_qr.png" alt="QR for Explora Venues PDF" width="200">
+<header>Junior Block School Layout</header>
 
-  <!-- Link to Junior Block layout image -->
-  <h2>Junior Block Layout</h2>
-  <p>
-    <a href="https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/assets/JuniorBlock_Layout.jpg" target="_blank">
-      Open JuniorBlock_Layout.jpg
-    </a>
-  </p>
-  <img src="juniorblock_layout_qr.png" alt="QR for Junior Block Layout" width="200">
+<div class="container">
+    <div class="subtitle">Pinch or tap to zoom. Drag to move around.</div>
+
+    <div class="zoom-container">
+        <img id="map" src="JuniorBlock_Layout.png" alt="Map" class="map-image">
+    </div>
+</div>
+
+<footer>
+    © Sri Kumaran Children’s Home • School Map
+</footer>
+
+<script>
+let map = document.getElementById("map");
+
+let scale = 1;
+let posX = 0;
+let posY = 0;
+let lastX = 0;
+let lastY = 0;
+let isDragging = false;
+
+// --- Double tap / Click to Zoom ---
+map.addEventListener("click", () => {
+    scale = scale >= 2 ? 1 : scale + 0.5;
+    updateTransform();
+});
+
+// --- Drag to pan ---
+map.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    map.style.cursor = "grabbing";
+});
+
+map.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+        posX += (e.clientX - lastX);
+        posY += (e.clientY - lastY);
+        lastX = e.clientX;
+        lastY = e.clientY;
+        updateTransform();
+    }
+});
+
+map.addEventListener("mouseup", () => {
+    isDragging = false;
+    map.style.cursor = "grab";
+});
+
+// --- Touch events (mobile) ---
+let lastTouchDistance = 0;
+
+map.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 2) {
+        lastTouchDistance = getTouchDistance(e);
+    }
+});
+
+map.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+
+    if (e.touches.length === 2) {
+        let newDist = getTouchDistance(e);
+        let diff = newDist - lastTouchDistance;
+
+        scale += diff * 0.001;
+        scale = Math.max(1, Math.min(scale, 4));
+
+        lastTouchDistance = newDist;
+        updateTransform();
+    }
+});
+
+function getTouchDistance(e) {
+    let dx = e.touches[0].clientX - e.touches[1].clientX;
+    let dy = e.touches[0].clientY - e.touches[1].clientY;
+    return Math.hypot(dx, dy);
+}
+
+function updateTransform() {
+    map.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+}
+</script>
+
 </body>
 </html>
+
