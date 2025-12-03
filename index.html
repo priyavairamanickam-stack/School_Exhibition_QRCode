@@ -10,7 +10,7 @@
             margin: 0;
             font-family: "Segoe UI", Arial, sans-serif;
             background: linear-gradient(135deg, #e3f2fd, #fce4ec);
-            touch-action: none; 
+            touch-action: none;
         }
 
         header {
@@ -71,7 +71,7 @@
 <header>Junior Block School Layout</header>
 
 <div class="container">
-    <div class="subtitle">Pinch or tap to zoom. Drag to move around.</div>
+    <div class="subtitle">Double tap or double click to zoom. Drag to move. Pinch to zoom.</div>
 
     <div class="zoom-container">
         <img id="map" src="JuniorBlock_Layout.png" alt="Map" class="map-image">
@@ -91,11 +91,20 @@ let posY = 0;
 let lastX = 0;
 let lastY = 0;
 let isDragging = false;
+let lastTap = 0;
 
-// --- Double tap / Click to Zoom ---
-map.addEventListener("click", () => {
-    scale = scale >= 2 ? 1 : scale + 0.5;
-    updateTransform();
+// --- Double tap / Double click to zoom ---
+map.addEventListener("click", (e) => {
+    let currentTime = new Date().getTime();
+    let tapLength = currentTime - lastTap;
+
+    if (tapLength < 300 && tapLength > 0) {
+        // Double tap detected
+        scale = scale >= 3 ? 1 : scale + 0.5;
+        updateTransform();
+    }
+
+    lastTap = currentTime;
 });
 
 // --- Drag to pan ---
@@ -121,7 +130,7 @@ map.addEventListener("mouseup", () => {
     map.style.cursor = "grab";
 });
 
-// --- Touch events (mobile) ---
+// --- Touch (mobile) events ---
 let lastTouchDistance = 0;
 
 map.addEventListener("touchstart", (e) => {
@@ -137,7 +146,7 @@ map.addEventListener("touchmove", (e) => {
         let newDist = getTouchDistance(e);
         let diff = newDist - lastTouchDistance;
 
-        scale += diff * 0.001;
+        scale += diff * 0.002;
         scale = Math.max(1, Math.min(scale, 4));
 
         lastTouchDistance = newDist;
