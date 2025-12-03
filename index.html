@@ -45,10 +45,9 @@
             text-align: center;
         }
 
-        /* Scrollable viewer box */
         .viewer {
             width: 100%;
-            height: 800px;     /* controls visible area */
+            height: 800px;
             border: 2px solid #ddd;
             border-radius: 12px;
             overflow: scroll;
@@ -56,7 +55,6 @@
             box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
         }
 
-        /* Ensure image scales fully inside scroll box */
         .viewer img {
             width: 100%;
             display: block;
@@ -78,19 +76,21 @@
 
 <div class="container">
 
-    <!-- IMAGE SCROLL VIEW -->
+    <!-- IMAGE VIEW -->
     <div class="card">
         <div class="title">Junior Block Layout (Scrollable)</div>
         <div class="viewer">
-            <img src="JuniorBlock_Layout.png" alt="Junior Block Layout Map">
+            <img src="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png"
+                 alt="Junior Block Layout">
         </div>
     </div>
 
-    <!-- PDF SCROLL VIEW -->
+    <!-- PDF VIEW -->
     <div class="card">
         <div class="title">Exhibition Venues & Schedule (Scrollable PDF)</div>
         <div class="viewer">
-            <embed src="Explora_Venues.pdf" type="application/pdf" width="100%" height="100%">
+            <embed src="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/Explora_Venues.pdf"
+                   type="application/pdf" width="100%" height="100%">
         </div>
     </div>
 
@@ -102,4 +102,3 @@
 
 </body>
 </html>
-
