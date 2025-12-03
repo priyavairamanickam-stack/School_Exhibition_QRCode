@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interactive Image Viewer</title>
 
-<!-- GLightbox CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-
 <style>
   body {
     margin: 0;
@@ -40,6 +37,7 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     z-index: 10;
   }
+
   nav a {
     margin: 0 15px;
     text-decoration: none;
@@ -63,7 +61,7 @@
     margin-bottom: 40px;
   }
 
-  /* Effects only for Image 1 */
+  /* Image 1 effects */
   .image-wrapper#image1 img {
     width: 100%;
     height: auto;
@@ -92,53 +90,59 @@
     transition: background 0.3s ease;
   }
   .buttons a:hover { background: #512da8; }
+
+  /* PDF viewer scrollable container */
+  .pdf-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .pdf-container iframe {
+    height: 600px; /* adjust height as needed */
+    width: 1200px; /* wide to allow horizontal scroll */
+    border: none;
+  }
 </style>
 </head>
 <body>
+
+<div id="particles-js"></div>
 
 <h1>Interactive Image Viewer</h1>
 
 <nav>
   <a href="#image1">Go to Image 1</a>
-  <a href="#image2">Go to Image 2</a>
+  <a href="#pdf">Go to PDF</a>
 </nav>
 
 <div class="scroll-container">
 
-  <!-- Image 1 (all effects retained) -->
+  <!-- Image 1 (interactive) -->
   <div class="image-wrapper" id="image1">
     <h2>Image 1</h2>
-    <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" class="glightbox">
-      <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" alt="Image 1">
-    </a>
+    <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" alt="Image 1">
     <div class="buttons">
       <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" download>Download</a>
       <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" target="_blank">QR Link</a>
     </div>
   </div>
 
-  <!-- Image 2 (completely static, no particles, no effects) -->
-  <div class="image-wrapper" id="image2">
-    <h2>Image 2</h2>
-    <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" class="glightbox">
-      <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" alt="Image 2">
-    </a>
+  <!-- PDF embedded directly with horizontal scroll -->
+  <div class="image-wrapper" id="pdf">
+    <h2>PDF Document</h2>
+    <div class="pdf-container">
+      <iframe src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondFile.pdf"></iframe>
+    </div>
     <div class="buttons">
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" download>Download</a>
-      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" target="_blank">QR Link</a>
+      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondFile.pdf" download>Download PDF</a>
     </div>
   </div>
 
 </div>
 
-<!-- GLightbox JS -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
-  const lightbox = GLightbox({ touchNavigation: true, loop: true });
-</script>
-
-<!-- Particles only for Image 1 -->
-<div id="particles-js"></div>
+<!-- Particles only for background -->
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script>
   particlesJS("particles-js", {
