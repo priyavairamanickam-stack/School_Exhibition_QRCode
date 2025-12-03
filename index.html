@@ -3,219 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Image + PDF Viewer</title>
+<title>Explora 2025 Guidebook</title>
+
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    position: relative;
-    background: #000; /* fallback */
-  }
-
-  /* Canvas for DNA + gradient */
-  canvas#dna-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* Navigation */
-  nav {
-    position: sticky;
-    top: 0;
-    background: rgba(255,255,255,0.95);
-    padding: 10px 0;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    z-index: 10;
-  }
-
-  nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #555;
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-
-  nav a:hover { color: #673ab7; }
-
-  /* Main container */
-  .container {
-    width: 90%;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: rgba(255,255,255,0.95);
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 1;
-  }
-
-  .image-wrapper { 
-    margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .image-wrapper.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Image 1 hover */
-  #image1 img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-  }
-  #image1 img:hover { transform: rotateY(5deg) scale(1.03); }
-
-  /* Buttons */
-  .buttons {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  .buttons a {
-    text-decoration: none;
-    padding: 6px 12px;
-    background: #673ab7;
-    color: #fff;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-  }
-  .buttons a:hover {
-    background: #512da8;
-    box-shadow: 0 0 10px #673ab7;
-    transform: scale(1.05);
-  }
-
-  /* PDF container */
-  .pdf-container {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 10px;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .pdf-container:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
-  .pdf-container iframe {
-    height: 600px;
-    width: 100%;
-    min-width: 800px;
-    border: none;
-  }
-
-  @media (max-width: 600px) {
-    .pdf-container iframe { min-width: 100%; height: 400px; }
-  }
-</style>
-</head>
-<body>
-
-<canvas id="dna-bg"></canvas>
-
-<nav>
-  <a href="#image1">Image 1</a>
-  <a href="#pdf">PDF</a>
-</nav>
-
-<div class="container">
-
-  <!-- Image 1 -->
-  <div class="image-wrapper" id="image1">
-    <h2>Image 1</h2>
-    <img src="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png" alt="Image 1">
-    <div class="buttons">
-      <a href="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png" download>Download</a>
-      <a href="https://raw.githubusercontent.com/priyavairamanickam-stack/School_Exhibition_QRCode/main/JuniorBlock_Layout.png" target="_blank">Open Full</a>
-    </div>
-  </div>
-
-  <!-- PDF -->
-  <div class="image-wrapper" id="pdf">
-    <h2>PDF Document</h2>
-    <div class="pdf-container">
-      <iframe src="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/Explora_Venues.pdf"></iframe>
-    </div>
-    <div class="buttons">
-      <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/Explora_Venues.pdf" download>Download PDF</a>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  // Section fade-in
-  const sections = document.querySelectorAll('.image-wrapper');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  sections.forEach(section => observer.observe(section));
-
-  // DNA + animated gradient background
-  const canvas = document.getElementById('dna-bg');
-  const ctx = canvas.getContext('2d');
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-
-  const helixPoints = [];
-  const numPoints = 200;
-  for (let i=0; i<numPoints; i++){
-    helixPoints.push({
-      x: width/2 + Math.sin(i*0.2)*80,
-      y: (i/numPoints)*height,
-      radius: 2 + Math.random()*2,
-      color: `rgba(255,255,255,0.5)`
-    });
-  }
-
-  let t=0;
-  function animate() {
-    // Gradient background
-    const gradient = ctx.createLinearGradient(0, 0, width, height);
-    const r = Math.floor(100 + 50*Math.sin(t*0.3));
-    const g = Math.floor(150 + 50*Math.sin(t*0.5));
-    const b = Math.floor(200 + 55*Math.sin(t*0.7));
-    gradient.addColorStop(0, `rgb(${r},${g},${b})`);
-    gradient.addColorStop(1, `rgb(${r+30},${g+30},${b+30})`);
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0,0,width,height);
-
-    // DNA helix points
-    t += 0.02;
-    for (let i=0; i<helixPoints.length; i++){
-      let p = helixPoints[i];
-      let dx = Math.sin(i*0.2 + t)*80;
-      ctx.beginPath();
-      ctx.arc(width/2 + dx, p.y, p.radius, 0, Math.PI*2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f0f1a;
+        color: white;
+        overflow-x: hidden;
     }
 
-    requestAnimationFrame(animate);
-  }
-  animate();
+    /* ===================== DNA ANIMATION BACKGROUND ===================== */
 
-  window.addEventListener('resize', ()=>{
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-</script>
+    /* Floating glowing particles */
+    .dna-particles {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        overflow: hidden;
+        z-index: -3;
+    }
+    .dna-particles span {
+        position: absolute;
+        width: 6px; height: 6px;
+        background: rgba(100,150,255,0.9);
+        border-radius: 50%;
+        animation: floatDots 6s linear infinite;
+        filter: blur(0.5px);
+    }
+    @keyframes floatDots {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        50% { transform: translateY(-80px) scale(1.3); opacity: 0.8; }
+        100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* DNA Twin Ribbon Wave */
+    .dna-strands {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        overflow: hidden;
+        z-index: -2;
+    }
+    .strand {
+        position: absolute;
+        width: 200%;
+        height: 4px;
+        background: linear-gradient(90deg, #5ad, #aaf, #5ad);
+        opacity: 0.6;
+        animation: wave 6s infinite linear;
+        border-radius: 2px;
+    }
+    .strand:nth-child(1) { top: 30%; }
+    .strand:nth-child(2) { top: 60%; animation-duration: 8s; }
+
+    @keyframes wave {
+        from { transform: translateX(-50%); }
+        to   { transform: translateX(0%); }
+    }
+
+    /* ===================== MAIN TITLE ===================== */
+
+    .main-title {
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-shadow: 
+            0 0 10px rgba(255,255,255,0.8),
+            0 0 25px rgba(120,190,255,0.9);
+    }
+
+    /* ===================== CONTENT CONTAINER ===================== */
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.15);
+    }
+
+    .section-title {
+        font-size: 1.9rem;
+        margin: 20px 0 10px;
+        text-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+
+    /* ===================== IMAGE STYLE ===================== */
+
+    .image-container {
+        overflow: hidden;
+        border-radius: 12px;
+        border: 2px solid rgba(255,255,255,0.4);
+        box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+    .image-container img {
+        width: 100%;
+        border-radius: 12px;
+        display: block;
+    }
+
+    /* ===================== PDF VIEWER ===================== */
+
+    .pdf-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        border-radius: 12px;
+        padding: 10px;
+        border: 2px solid rgba(255,255,255,0.4);
+        background: rgba(0,0,0,0.2);
+        box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    iframe {
+        width: 1000px;
+        height: 600px;
+        border: none;
+        border-radius: 12px;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+        iframe {
+            height: 450px;
+            width: 900px;
+        }
+        .main-title {
+            font-size: 2.2rem;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- ================= DNA ANIMATION LAYERS ================= -->
+<div class="dna-particles">
+    <!-- 25 moving dots -->
+    <script>
+        for (let i = 0; i < 25; i++) {
+            document.write('<span style="left:'+Math.random()*100+'%; top:'+Math.random()*100+'%; animation-delay:'+(Math.random()*3)+'s;"></span>');
+        }
+    </script>
+</div>
+
+<div class="dna-strands">
+    <div class="strand"></div>
+    <div class="strand"></div>
+</div>
+
+<!-- ================= MAIN TITLE ================= -->
+<h1 class="main-title">Guidebook to our Explora 2025!!</h1>
+
+<!-- ================= CONTENT BOX ================= -->
+<div class="container">
+
+    <!-- SCHOOL MAP -->
+    <h2 class="section-title">School Map</h2>
+    <div class="image-container">
+        <img src="JuniorBlock_Layout.png" alt="School Map">
+    </div>
+
+    <!-- VENUES PDF -->
+    <h2 class="section-title">Venues of our Explora 2025!!</h2>
+    <div class="pdf-container">
+        <iframe src="Explora_Venues.pdf"></iframe>
+    </div>
+
+</div>
 
 </body>
 </html>
