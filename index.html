@@ -61,17 +61,10 @@
   .image-wrapper {
     position: relative;
     margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease;
   }
 
-  .image-wrapper.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  img {
+  /* Effects only for Image 1 */
+  .image-wrapper#image1 img {
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -79,8 +72,9 @@
     transition: transform 0.3s ease;
     cursor: pointer;
   }
-  img:hover { transform: rotateY(5deg) scale(1.03); }
+  .image-wrapper#image1 img:hover { transform: rotateY(5deg) scale(1.03); }
 
+  /* Buttons */
   .buttons {
     margin-top: 10px;
     display: flex;
@@ -102,8 +96,6 @@
 </head>
 <body>
 
-<div id="particles-js"></div>
-
 <h1>Interactive Image Viewer</h1>
 
 <nav>
@@ -113,7 +105,7 @@
 
 <div class="scroll-container">
 
-  <!-- Image 1 (unchanged) -->
+  <!-- Image 1 (all effects retained) -->
   <div class="image-wrapper" id="image1">
     <h2>Image 1</h2>
     <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" class="glightbox">
@@ -125,42 +117,28 @@
     </div>
   </div>
 
-  <!-- Image 2 with tiny preview / low-res placeholder -->
+  <!-- Image 2 (completely static, no particles, no effects) -->
   <div class="image-wrapper" id="image2">
     <h2>Image 2</h2>
-    <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" class="glightbox">
-      <img 
-        src="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage_small.png" 
-        data-src="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" 
-        alt="Image 2" 
-        loading="lazy" 
-        style="background: #eee; min-height: 300px;" 
-        class="lazy-image">
+    <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" class="glightbox">
+      <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" alt="Image 2">
     </a>
     <div class="buttons">
-      <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" download>Download</a>
-      <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/SecondImage.png" target="_blank">QR Link</a>
+      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" download>Download</a>
+      <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" target="_blank">QR Link</a>
     </div>
   </div>
 
 </div>
 
+<!-- GLightbox JS -->
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
   const lightbox = GLightbox({ touchNavigation: true, loop: true });
-
-  const images = document.querySelectorAll('.image-wrapper');
-  function revealOnScroll() {
-    const windowHeight = window.innerHeight;
-    images.forEach(img => {
-      const top = img.getBoundingClientRect().top;
-      if(top < windowHeight - 100){ img.classList.add('visible'); }
-    });
-  }
-  window.addEventListener('scroll', revealOnScroll);
-  window.addEventListener('load', revealOnScroll);
 </script>
 
+<!-- Particles only for Image 1 -->
+<div id="particles-js"></div>
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script>
   particlesJS("particles-js", {
@@ -174,21 +152,6 @@
       "move": {"enable": true,"speed": 2}
     }
   });
-</script>
-
-<!-- Lazy-load full image for Image 2 -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const lazyImages = document.querySelectorAll('.lazy-image');
-  lazyImages.forEach(img => {
-    const fullSrc = img.getAttribute('data-src');
-    const fullImg = new Image();
-    fullImg.src = fullSrc;
-    fullImg.onload = () => {
-      img.src = fullSrc;
-    }
-  });
-});
 </script>
 
 </body>
