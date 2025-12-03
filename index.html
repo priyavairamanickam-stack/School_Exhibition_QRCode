@@ -113,6 +113,7 @@
 
 <div class="scroll-container">
 
+  <!-- Image 1 (unchanged) -->
   <div class="image-wrapper" id="image1">
     <h2>Image 1</h2>
     <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/JuniorBlock_Layout.png" class="glightbox">
@@ -124,10 +125,12 @@
     </div>
   </div>
 
+  <!-- Image 2 (lazy-loaded with placeholder) -->
   <div class="image-wrapper" id="image2">
     <h2>Image 2</h2>
     <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" class="glightbox">
-      <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" alt="Image 2">
+      <img src="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" 
+           alt="Image 2" loading="lazy" style="background: #eee; min-height: 300px;">
     </a>
     <div class="buttons">
       <a href="https://github.com/priyavairamanickam-stack/School_Exhibition_QRCode/raw/main/SecondImage.png" download>Download</a>
