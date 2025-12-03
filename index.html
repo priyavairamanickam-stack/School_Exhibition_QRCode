@@ -68,7 +68,7 @@
   }
   .buttons a:hover { background: #512da8; }
 
-  /* PDF container with horizontal scroll */
+  /* PDF container with responsive horizontal scroll */
   .pdf-container {
     width: 100%;
     overflow-x: auto;
@@ -77,15 +77,17 @@
   }
   .pdf-container iframe {
     height: 600px;
-    width: 1200px; /* wide so user can scroll horizontally */
+    width: 100%;
+    min-width: 800px; /* allows horizontal scroll on wider screens */
     border: none;
   }
 
-  /* QR code styling */
-  .qr-code {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
+  /* Mobile adjustments */
+  @media (max-width: 600px) {
+    .pdf-container iframe {
+      min-width: 100%; /* fit screen on small devices */
+      height: 400px;
+    }
   }
 </style>
 </head>
@@ -116,10 +118,6 @@
     </div>
     <div class="buttons">
       <a href="https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/Explora_Venues.pdf" download>Download PDF</a>
-    </div>
-    <!-- QR code to open PDF -->
-    <div class="qr-code">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://priyavairamanickam-stack.github.io/School_Exhibition_QRCode/Explora_Venues.pdf" alt="QR code to PDF">
     </div>
   </div>
 
